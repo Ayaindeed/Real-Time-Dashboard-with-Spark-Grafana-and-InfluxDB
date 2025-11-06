@@ -96,14 +96,6 @@ Key configuration files:
 - **Database Health**: InfluxDB and MySQL admin interfaces
 - **Metrics**: Grafana dashboards show system health
 
-## Troubleshooting
-
-Common issues and solutions:
-
-1. **Services not starting**: Check Docker logs
-2. **Kafka connection errors**: Verify bootstrap servers
-3. **Database connection**: Check credentials and network
-4. **Memory issues**: Increase Docker resources
 
 ## Development
 
@@ -130,17 +122,3 @@ project-root/
 ├── scripts/               # Utility scripts
 └── spark_streaming/       # Spark applications
 ```
-
-## License
-
-MIT License
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
-
-## Support
-
-For issues and questions, please create an issue in the repository.

@@ -1,0 +1,124 @@
+{
+  "type": "record",
+  "name": "UserEvent",
+  "namespace": "com.ecommerce.events",
+  "fields": [
+    {
+      "name": "event_type",
+      "type": "string",
+      "doc": "Type of event: click, purchase, cart_add, etc."
+    },
+    {
+      "name": "user_id",
+      "type": "int",
+      "doc": "Unique identifier for the user"
+    },
+    {
+      "name": "campaign_id",
+      "type": "string",
+      "doc": "Campaign identifier"
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "logicalType": "timestamp-millis",
+      "doc": "Event timestamp in ISO format"
+    },
+    {
+      "name": "session_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "User session identifier"
+    },
+    {
+      "name": "product_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Product identifier"
+    },
+    {
+      "name": "order_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Order identifier for purchase events"
+    },
+    {
+      "name": "units",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "Number of units purchased"
+    },
+    {
+      "name": "unit_price",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Price per unit"
+    },
+    {
+      "name": "total_amount",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Total amount for purchase events"
+    },
+    {
+      "name": "currency",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Currency code (USD, EUR, etc.)"
+    },
+    {
+      "name": "page_url",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URL of the page where event occurred"
+    },
+    {
+      "name": "user_agent",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "User agent string"
+    },
+    {
+      "name": "ip_address",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "User IP address"
+    },
+    {
+      "name": "payment_method",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Payment method used for purchases"
+    },
+    {
+      "name": "shipping_address",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Address",
+          "fields": [
+            {"name": "country", "type": "string"},
+            {"name": "state", "type": ["null", "string"], "default": null},
+            {"name": "city", "type": ["null", "string"], "default": null},
+            {"name": "postal_code", "type": ["null", "string"], "default": null}
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Shipping address for purchase events"
+    },
+    {
+      "name": "metadata",
+      "type": [
+        "null",
+        {
+          "type": "map",
+          "values": "string"
+        }
+      ],
+      "default": null,
+      "doc": "Additional event metadata"
+    }
+  ]
+}

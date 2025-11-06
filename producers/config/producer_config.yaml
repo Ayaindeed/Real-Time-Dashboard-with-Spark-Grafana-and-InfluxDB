@@ -1,0 +1,38 @@
+kafka:
+  bootstrap_servers: "localhost:9092"
+  topic: "user_events"
+  client_id: "event_producer"
+  value_serializer: "json"
+  
+  # Producer settings
+  retries: 3
+  acks: "all"
+  batch_size: 16384
+  linger_ms: 5
+  buffer_memory: 33554432
+
+producer:
+  events_per_second: 10
+  batch_size: 100
+  
+  # Event distribution
+  click_percentage: 0.8
+  purchase_percentage: 0.2
+  
+  # Campaign settings
+  campaigns:
+    - "SUMMER2024"
+    - "WINTER2024"
+    - "SPRING2024"
+    - "FALL2024"
+    - "BLACKFRIDAY"
+    - "CYBER_MONDAY"
+  
+  # Product settings
+  product_count: 1000
+  price_range:
+    min: 10.0
+    max: 500.0
+  
+  # User settings
+  user_count: 10000

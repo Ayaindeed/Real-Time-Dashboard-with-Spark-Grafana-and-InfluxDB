@@ -1,0 +1,108 @@
+spark:
+  app_name: "EcommerceRealtimeAnalytics"
+  master: "local[*]"  # Use all available cores, change to spark://spark-master:7077 for cluster
+  
+  # Spark Configuration
+  config:
+    spark.sql.adaptive.enabled: "true"
+    spark.sql.adaptive.coalescePartitions.enabled: "true"
+    spark.sql.adaptive.advisory.partitionSizeInBytes: "64MB"
+    spark.serializer: "org.apache.spark.serializer.KryoSerializer"
+    spark.sql.execution.arrow.pyspark.enabled: "true"
+    
+    # Memory settings
+    spark.executor.memory: "2g"
+    spark.driver.memory: "1g"
+    spark.executor.memoryFraction: "0.8"
+    spark.sql.execution.arrow.maxRecordsPerBatch: "10000"
+    
+    # Streaming settings
+    spark.streaming.backpressure.enabled: "true"
+    spark.streaming.receiver.maxRate: "1000"
+    spark.streaming.kafka.maxRatePerPartition: "1000"
+    spark.sql.streaming.checkpointLocation: "/tmp/spark-checkpoint"
+
+# Kafka Configuration
+kafka:
+  bootstrap_servers: "localhost:9092"
+  topics:
+    input: "user_events"
+    output: "processed_events"
+  
+  consumer:
+    group_id: "spark-streaming-consumer"
+    auto_offset_reset: "latest"
+    enable_auto_commit: "false"
+    key_deserializer: "StringDeserializer"
+    value_deserializer: "StringDeserializer"
+
+# Database Configurations
+databases:
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "ecommerce"
+    user: "user"
+    password: "password"
+    table: "user_demographics"
+    
+    # Connection pool settings
+    max_connections: 20
+    connection_timeout: 30
+    
+  influxdb:
+    url: "http://localhost:8086"
+    token: "admin-token"
+    org: "ecommerce-org"
+    bucket: "events"
+    
+    # Write settings
+    batch_size: 1000
+    flush_interval: 1000  # milliseconds
+    retry_interval: 5000  # milliseconds
+
+# Stream Processing
+streaming:
+  # Batch interval for Spark Streaming
+  batch_interval: 5  # seconds
+  
+  # Window settings
+  window_duration: 60  # seconds
+  slide_duration: 10   # seconds
+  
+  # Watermark settings
+  watermark_delay: "10 seconds"
+  
+  # Output settings
+  output_mode: "append"  # append, complete, update
+  trigger_interval: "5 seconds"
+
+# Data Processing
+processing:
+  # Join settings
+  join_type: "left"
+  broadcast_threshold: "10MB"
+  
+  # Aggregation settings
+  aggregation_functions:
+    - "count"
+    - "sum"
+    - "avg"
+    - "min"
+    - "max"
+  
+  # Enrichment settings
+  enrich_events: true
+  calculate_metrics: true
+  
+# Monitoring
+monitoring:
+  enabled: true
+  metrics_interval: 30  # seconds
+  
+  # Logging
+  log_level: "INFO"
+  log_format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # Health checks
+  health_check_interval: 60  # seconds
